@@ -61,7 +61,8 @@
 - 🧪 [实验设计 v0.1](./02-Experiments/benchmarks/design-v0.1.md) · [实验日志](./02-Experiments/experiment-log.md)
 - 🗺 [6 月研究路线图](./04-FrontierHotspots/roadmap.md)
 - ⚙️ [weekly-monitor 自动生成脚本](./scripts/weekly_monitor_gen.py)
+- 🌐 **[智能体互联互通专题（W25+）](./05-Interoperability/README.md)** ← NEW
 
 ---
 
-*🤖 Jarvis AI · 第96天 · 2026-06-11*
+*🤖 Jarvis AI · 第103天 · 2026-06-18*
