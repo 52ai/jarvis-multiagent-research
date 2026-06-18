@@ -12,7 +12,8 @@
 05-Interoperability/
 ├── README.md                                  ← 本文件（专题索引）
 ├── 智能体互联互通专题报告-v0.1.md              ← 核心报告（13K · 三层 + 三维建议）
-├── executive-summary.md                       ← 微信公众号版本（待写）
+├── executive-summary.md                       ← 微信公众号速读版（5 分钟看懂）
+├── decision-tree-mcp-vs-a2a.md                ← MCP vs A2A 决策树（开发者实战）
 ├── literature/                                ← 文献索引
 │   └── index.md                                ← 16 篇核心文献
 ├── notes/                                     ← 关键文献笔记
