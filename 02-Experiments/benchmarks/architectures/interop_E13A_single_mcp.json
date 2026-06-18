@@ -1,0 +1,70 @@
+{
+  "arch_id": "E13-A",
+  "arch_name": "single-mcp",
+  "arch_type": "interop",
+  "version": "0.1",
+  "description": "单智能体 + 多 MCP 工具调用，无智能体间通信。基线架构，验证 MCP 工具密集型场景。",
+  "n_agents": 1,
+  "n_tools_min": 1,
+  "n_tools_max": 10,
+  "lead_model": "opus-4",
+  "sub_models": [],
+  "topology": "star (lead → mcp-tools)",
+  "components": {
+    "agents": [
+      {
+        "agent_id": "A1_lead",
+        "role": "lead",
+        "model": "opus-4",
+        "system_prompt": "你是 Lead Agent，负责理解任务、调用 MCP 工具、整合结果。",
+        "tools": "MCP",
+        "owns_state": true
+      }
+    ],
+    "mcp_servers": [
+      {
+        "name": "search_server",
+        "type": "MCP",
+        "description": "学术搜索 + 通用搜索",
+        "tools": ["arxiv_search", "google_scholar", "web_search"]
+      },
+      {
+        "name": "doc_server",
+        "type": "MCP",
+        "description": "文档读写",
+        "tools": ["read_pdf", "write_md", "summarize"]
+      },
+      {
+        "name": "data_server",
+        "type": "MCP",
+        "description": "数据处理",
+        "tools": ["python_exec", "pandas_query", "chart_plot"]
+      }
+    ]
+  },
+  "communication": {
+    "between_agents": "N/A (single agent)",
+    "tool_invocations": "MCP JSON-RPC over HTTP/SSE"
+  },
+  "use_cases": {
+    "T1_review": "high_fit",
+    "T2_reasoning": "high_fit",
+    "T3_a2a_vs_mcp": "baseline",
+    "T4_security": "low_fit",
+    "T5_emergent": "low_fit"
+  },
+  "expected_strengths": [
+    "低延迟（无智能体间通信）",
+    "低 token 消耗（无协调开销）",
+    "工具密集型任务表现优"
+  ],
+  "expected_weaknesses": [
+    "无并行能力",
+    "无智能体间分工",
+    "复杂任务分解能力弱"
+  ],
+  "token_estimate_per_run": 3000,
+  "latency_estimate_ms": 45000,
+  "implementation_stub": "scripts/interop_runner.py:E13A_single_mcp()",
+  "H1_validation": "在 T1/T2 工具密集任务上 fact_accuracy 应显著高于 single 架构"
+}

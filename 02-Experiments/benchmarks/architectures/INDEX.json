@@ -1,0 +1,103 @@
+{
+  "_metadata": {
+    "name": "033 Phase 2 · 互联互通组架构配置",
+    "version": "0.1",
+    "created": "2026-06-18",
+    "created_by": "Jarvis AI",
+    "compatible_with": "run_baseline_v0.1.py (after upgrade)",
+    "total_architectures": 4,
+    "n_agents_range": [1, 4],
+    "model_combination": "opus-4 (lead) + sonnet-4 (subs)",
+    "reference_docs": [
+      "05-Interoperability/interop-experiment-design-v0.1.md",
+      "05-Interoperability/智能体互联互通专题报告-v0.1.md"
+    ]
+  },
+  "architectures": [
+    {
+      "arch_id": "E13-A",
+      "name": "single-mcp",
+      "file": "interop_E13A_single_mcp.json",
+      "n_agents": 1,
+      "protocols": ["MCP"],
+      "category": "tool_intensive"
+    },
+    {
+      "arch_id": "E13-B",
+      "name": "single-a2a",
+      "file": "interop_E13B_single_a2a.json",
+      "n_agents": 4,
+      "protocols": ["A2A"],
+      "category": "collaboration_intensive"
+    },
+    {
+      "arch_id": "E13-C",
+      "name": "hybrid-mcp-a2a",
+      "file": "interop_E13C_hybrid.json",
+      "n_agents": 4,
+      "protocols": ["MCP", "A2A"],
+      "category": "hybrid",
+      "anthropic_reference": true
+    },
+    {
+      "arch_id": "E13-D",
+      "name": "ain-routed",
+      "file": "interop_E13D_ain_routed.json",
+      "n_agents": 4,
+      "protocols": ["MCP", "A2A", "AIN"],
+      "category": "routing_intensive",
+      "ain_reference": true,
+      "aip_reference": true
+    }
+  ],
+  "experiment_matrix": {
+    "tasks": ["T1", "T2", "T3", "T4", "T5"],
+    "architectures": ["E13-A", "E13-B", "E13-C", "E13-D"],
+    "repetitions": 3,
+    "total_runs": 60
+  },
+  "scoring_dimensions": {
+    "original_4": ["fact_accuracy", "structure_completeness", "readability", "insight_depth"],
+    "new_3": ["interop_score", "latency_overhead", "token_efficiency"],
+    "total": 7,
+    "weights": {
+      "fact_accuracy": 0.30,
+      "structure_completeness": 0.15,
+      "readability": 0.15,
+      "insight_depth": 0.20,
+      "interop_score": 0.10,
+      "latency_overhead": 0.05,
+      "token_efficiency": 0.05
+    }
+  },
+  "hypotheses": {
+    "H1": {
+      "statement": "MCP 工具密集型任务（T1/T2）single-mcp 显著优于 single agent",
+      "test_architectures": ["E13-A", "single"],
+      "test_tasks": ["T1", "T2"],
+      "primary_metric": "fact_accuracy",
+      "statistical_test": "t-test + Cohen's d"
+    },
+    "H2": {
+      "statement": "A2A 协作密集型任务（T4/T5）single-a2a 显著优于 single agent",
+      "test_architectures": ["E13-B", "single"],
+      "test_tasks": ["T4", "T5"],
+      "primary_metric": "insight_depth",
+      "statistical_test": "t-test + Cohen's d"
+    },
+    "H3": {
+      "statement": "ain-routed 在涌现行为任务（T5）上表现最佳",
+      "test_architectures": ["E13-D", "E13-A", "E13-B", "E13-C"],
+      "test_tasks": ["T5"],
+      "primary_metric": "insight_depth",
+      "statistical_test": "ANOVA + post-hoc"
+    },
+    "H4": {
+      "statement": "hybrid-mcp-a2a 在混合任务（T3）综合分最高",
+      "test_architectures": ["E13-C", "E13-A", "E13-B", "E13-D"],
+      "test_tasks": ["T3"],
+      "primary_metric": "composite_score",
+      "statistical_test": "ANOVA + post-hoc"
+    }
+  }
+}

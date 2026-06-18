@@ -1,0 +1,102 @@
+{
+  "arch_id": "E13-D",
+  "arch_name": "ain-routed",
+  "arch_type": "interop",
+  "version": "0.1",
+  "description": "AIN 路由式架构：Intent Router + 3 Agent Domains。模拟 IETF AIN 草案的多域能力路由。",
+  "n_agents": 4,
+  "n_tools_min": 6,
+  "n_tools_max": 12,
+  "lead_model": "opus-4",
+  "sub_models": ["sonnet-4", "sonnet-4", "sonnet-4"],
+  "topology": "router (intent dispatcher) → 3 agent domains → MCP tools",
+  "components": {
+    "agents": [
+      {
+        "agent_id": "D0_router",
+        "role": "intent_router",
+        "model": "opus-4",
+        "system_prompt": "你是 Intent Router，分析用户意图，路由到合适的 Agent Domain。",
+        "owns_state": true,
+        "routing_strategy": "capability_match + load_balance"
+      },
+      {
+        "agent_id": "D1_domain_research",
+        "role": "domain_agent",
+        "model": "sonnet-4",
+        "system_prompt": "你是 Research Domain 的 Handler，处理研究类 Intent。",
+        "owns_state": false,
+        "capability_oid": "1.3.6.1.4.1.research",
+        "capability_ads": ["arxiv_search", "literature_review", "fact_check"]
+      },
+      {
+        "agent_id": "D2_domain_writing",
+        "role": "domain_agent",
+        "model": "sonnet-4",
+        "system_prompt": "你是 Writing Domain 的 Handler，处理写作类 Intent。",
+        "owns_state": false,
+        "capability_oid": "1.3.6.1.4.1.writing",
+        "capability_ads": ["markdown_writer", "summarizer", "structurer"]
+      },
+      {
+        "agent_id": "D3_domain_review",
+        "role": "domain_agent",
+        "model": "sonnet-4",
+        "system_prompt": "你是 Review Domain 的 Handler，处理审核类 Intent。",
+        "owns_state": false,
+        "capability_oid": "1.3.6.1.4.1.review",
+        "capability_ads": ["quality_check", "compliance_audit", "scoring"]
+      }
+    ],
+    "mcp_servers": [
+      {
+        "name": "search_mcp",
+        "owner_agent": "D1_domain_research"
+      },
+      {
+        "name": "doc_mcp",
+        "owner_agent": "D2_domain_writing"
+      },
+      {
+        "name": "audit_mcp",
+        "owner_agent": "D3_domain_review"
+      }
+    ],
+    "routing_table": {
+      "intents.research": "D1_domain_research",
+      "intents.writing": "D2_domain_writing",
+      "intents.review": "D3_domain_review",
+      "intents.analysis": "D1 → D2 (chain)"
+    }
+  },
+  "communication": {
+    "between_agents": "AIN-like intent datagrams (JSON over HTTP)",
+    "routing": "Capability Routing Table (CRT) + Capability Advertisements (CAP)",
+    "tool_invocations": "MCP JSON-RPC",
+    "discovery": "dynamic_capability_ads"
+  },
+  "use_cases": {
+    "T1_review": "high_fit",
+    "T2_reasoning": "high_fit",
+    "T3_a2a_vs_mcp": "high_fit",
+    "T4_security": "high_fit",
+    "T5_emergent": "highest_fit"
+  },
+  "expected_strengths": [
+    "可扩展性强（新增 domain 即可）",
+    "智能涌现潜力最大",
+    "接近 IETF AIN 草案参考实现",
+    "中国 AIP 协议可类比"
+  ],
+  "expected_weaknesses": [
+    "实现复杂度最高",
+    "调试困难（多跳路由）",
+    "需要 CAP/CRT 维护开销"
+  ],
+  "token_estimate_per_run": 22000,
+  "latency_estimate_ms": 150000,
+  "implementation_stub": "scripts/interop_runner.py:E13D_ain_routed()",
+  "H3_validation": "在 T5 涌现任务上 emergent_behavior_score 应显著高于其他架构",
+  "ain_reference": "https://datatracker.ietf.org/doc/draft-feng-nmrg-ain-architecture/",
+  "aip_reference": "GB/Z 185-2026 中国智能体互联标准"
+}

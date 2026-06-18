@@ -1,0 +1,94 @@
+{
+  "arch_id": "E13-C",
+  "arch_name": "hybrid-mcp-a2a",
+  "arch_type": "interop",
+  "version": "0.1",
+  "description": "Lead + 3 Sub-agents via A2A，每个 Sub 配备专属 MCP 工具。Anthropic 多智能体研究系统模式。",
+  "n_agents": 4,
+  "n_tools_min": 6,
+  "n_tools_max": 12,
+  "lead_model": "opus-4",
+  "sub_models": ["sonnet-4", "sonnet-4", "sonnet-4"],
+  "topology": "star (lead ↔ 3 sub via A2A) → 3 sub → MCP tools",
+  "components": {
+    "agents": [
+      {
+        "agent_id": "C0_lead",
+        "role": "lead",
+        "model": "opus-4",
+        "system_prompt": "你是 Lead Agent，负责任务拆解、智能体委派、结果汇总。",
+        "owns_state": true
+      },
+      {
+        "agent_id": "C1_researcher",
+        "role": "researcher",
+        "model": "sonnet-4",
+        "system_prompt": "你是 Researcher Agent，专注文献检索，使用 MCP 搜索/数据库工具。",
+        "owns_state": false
+      },
+      {
+        "agent_id": "C2_synthesizer",
+        "role": "synthesizer",
+        "model": "sonnet-4",
+        "system_prompt": "你是 Synthesizer Agent，使用 MCP 文档/计算工具。",
+        "owns_state": false
+      },
+      {
+        "agent_id": "C3_reviewer",
+        "role": "reviewer",
+        "model": "sonnet-4",
+        "system_prompt": "你是 Reviewer Agent，使用 MCP 审核/质量工具。",
+        "owns_state": false
+      }
+    ],
+    "mcp_servers": [
+      {
+        "name": "search_server",
+        "owner_agent": "C1_researcher",
+        "tools": ["arxiv_search", "web_search"]
+      },
+      {
+        "name": "doc_server",
+        "owner_agent": "C2_synthesizer",
+        "tools": ["read_pdf", "write_md", "summarize"]
+      },
+      {
+        "name": "data_server",
+        "owner_agent": "C2_synthesizer",
+        "tools": ["python_exec", "pandas_query"]
+      },
+      {
+        "name": "review_server",
+        "owner_agent": "C3_reviewer",
+        "tools": ["fact_check", "style_check", "citation_check"]
+      }
+    ]
+  },
+  "communication": {
+    "between_agents": "A2A JSON-RPC",
+    "tool_invocations": "MCP JSON-RPC",
+    "discovery": "static_agent_cards + mcp_schemas"
+  },
+  "use_cases": {
+    "T1_review": "high_fit",
+    "T2_reasoning": "high_fit",
+    "T3_a2a_vs_mcp": "high_fit",
+    "T4_security": "high_fit",
+    "T5_emergent": "high_fit"
+  },
+  "expected_strengths": [
+    "工具 + 协作双优势",
+    "复杂任务综合能力强",
+    "可作为生产级参考架构"
+  ],
+  "expected_weaknesses": [
+    "最高 token 消耗",
+    "最长延迟",
+    "实现复杂度最高"
+  ],
+  "token_estimate_per_run": 18000,
+  "latency_estimate_ms": 120000,
+  "implementation_stub": "scripts/interop_runner.py:E13C_hybrid()",
+  "H4_validation": "在 T3 混合任务（涉及 A2A + MCP 对比）综合分应最高",
+  "anthropic_reference": "https://www.anthropic.com/engineering/multi-agent-research-system (90.2% perf gain, 15x token cost)"
+}

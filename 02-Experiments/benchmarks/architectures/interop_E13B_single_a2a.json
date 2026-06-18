@@ -1,0 +1,73 @@
+{
+  "arch_id": "E13-B",
+  "arch_name": "single-a2a",
+  "arch_type": "interop",
+  "version": "0.1",
+  "description": "1 Lead + 3 Sub-agents via A2A 协议，无 MCP 工具。验证 A2A 协作密集型场景。",
+  "n_agents": 4,
+  "n_tools_min": 0,
+  "n_tools_max": 0,
+  "lead_model": "opus-4",
+  "sub_models": ["sonnet-4", "sonnet-4", "sonnet-4"],
+  "topology": "star (lead ↔ 3 sub via A2A)",
+  "components": {
+    "agents": [
+      {
+        "agent_id": "B0_lead",
+        "role": "lead",
+        "model": "opus-4",
+        "system_prompt": "你是 Lead Agent（总编辑），负责任务拆解、委派、汇总。",
+        "owns_state": true
+      },
+      {
+        "agent_id": "B1_researcher",
+        "role": "researcher",
+        "model": "sonnet-4",
+        "system_prompt": "你是 Researcher Agent，专注文献检索和事实核查。",
+        "owns_state": false
+      },
+      {
+        "agent_id": "B2_synthesizer",
+        "role": "synthesizer",
+        "model": "sonnet-4",
+        "system_prompt": "你是 Synthesizer Agent，专注信息整合和结构化输出。",
+        "owns_state": false
+      },
+      {
+        "agent_id": "B3_reviewer",
+        "role": "reviewer",
+        "model": "sonnet-4",
+        "system_prompt": "你是 Reviewer Agent，专注质量检查和最终审校。",
+        "owns_state": false
+      }
+    ],
+    "mcp_servers": []
+  },
+  "communication": {
+    "between_agents": "A2A JSON-RPC",
+    "task_delegation": "A2A Agent Card → Task → Result",
+    "discovery": "static_agent_cards"
+  },
+  "use_cases": {
+    "T1_review": "medium_fit",
+    "T2_reasoning": "medium_fit",
+    "T3_a2a_vs_mcp": "high_fit",
+    "T4_security": "high_fit",
+    "T5_emergent": "high_fit"
+  },
+  "expected_strengths": [
+    "任务并行分解（3 sub 并行）",
+    "智能体间专业化分工",
+    "涌现行为可观察",
+    "协作密集型任务优"
+  ],
+  "expected_weaknesses": [
+    "高 token 消耗（协调开销）",
+    "高延迟（多次 A2A 调用）",
+    "工具调用能力弱（无 MCP）"
+  ],
+  "token_estimate_per_run": 12000,
+  "latency_estimate_ms": 90000,
+  "implementation_stub": "scripts/interop_runner.py:E13B_single_a2a()",
+  "H2_validation": "在 T4/T5 协作密集任务上 insight_depth 应显著高于 single 架构"
+}
