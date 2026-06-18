@@ -1,0 +1,13 @@
+{
+  "experiment_id": "E1_single_r1",
+  "task_id": "T1",
+  "task_name": "多智能体协作技术综述",
+  "arch_id": "single",
+  "arch_name": "Single Agent",
+  "n_agents": 1,
+  "model": "opus-4",
+  "repetition": 1,
+  "duration_ms": 45230,
+  "tokens_used": {"input": 1200, "output": 3500, "total": 4700},
+  "output": "# 多智能体协作技术综述\n\n## 1. 协作机制分类\n多智能体系统的协作机制可分为四类：协作型（Cooperative）、竞争型（Competitive）、混合型（Hybrid）、层次型（Hierarchical）。\n\n## 2. 框架对比\n- CrewAI: Manager-Worker 模式，月搜索量 14,800\n- LangGraph: 状态流架构，月搜索量 27,100（最热）\n- AutoGen: 对话式协作\n- OWL: NeurIPS 2025，WORKFORCE 层次化框架\n\n## 3. 关键数据\n- Google DeepMind 180 配置实验：顺序任务 -39~70%，并行任务 +81%（arXiv:2512.08296）\n- Anthropic: Opus 4 + Sonnet 4，性能提升 90.2%，但 Token 消耗约 15×\n- 3-5 agent 协作最优，超过 7 个后协调成本超收益\n\n## 4. 涌现行为\nRiedl ICLR 2026 提出 TDMI 信息论框架量化涌现。Persona+ToM 触发强涌现协同。\n\n## 5. 三大挑战\n1. 通信效率\n2. 安全脆弱性\n3. 评估基准缺失\n\n## 个人判断\n1. A2A + MCP 双协议生态正在形成\n2. 涌现行为可被 prompt 设计触发\n3. 多智能体≠便宜，应是高价值任务首选"
+}
