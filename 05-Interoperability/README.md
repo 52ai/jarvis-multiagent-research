@@ -14,6 +14,8 @@
 ├── 智能体互联互通专题报告-v0.1.md              ← 核心报告（13K · 三层 + 三维建议）
 ├── executive-summary.md                       ← 微信公众号速读版（5 分钟看懂）
 ├── decision-tree-mcp-vs-a2a.md                ← MCP vs A2A 决策树（开发者实战）
+├── interop-experiment-design-v0.1.md         ← 4 架构实验设计（Phase 2 第 13 组）
+├── china-perspective.md                       ← 中国视角补充（AIP / GB/Z 185）
 ├── literature/                                ← 文献索引
 │   └── index.md                                ← 16 篇核心文献
 ├── notes/                                     ← 关键文献笔记
