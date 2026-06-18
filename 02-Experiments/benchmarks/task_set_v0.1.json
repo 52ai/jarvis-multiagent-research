@@ -1,0 +1,101 @@
+{
+  "version": "1.0",
+  "created": "2026-06-18",
+  "purpose": "033 Phase 2 W27-W28 baseline experiment — 5 fixed test tasks × 12 architectures × 3 repetitions = 180 runs",
+  "model": {
+    "primary": "Opus 4 (lead) + Sonnet 4 (subagents)",
+    "temperature": 0.7,
+    "max_rounds": 20,
+    "max_tokens_per_call": 8000
+  },
+  "tasks": [
+    {
+      "id": "T1",
+      "name": "多智能体协作技术综述",
+      "difficulty": "⭐⭐",
+      "expected_agents": 3,
+      "query": "请撰写一份关于大语言模型多智能体协作技术的综述报告。覆盖：1) 协作机制分类（协作型/竞争型/混合型/层次型）；2) 主要开源框架对比（CrewAI / LangGraph / AutoGen / OWL）；3) 2025-2026年关键研究进展；4) 现存问题（通信效率、安全脆弱性、评估基准）。\n\n要求：\n- 至少引用 5 篇 2025-2026 年的论文或工业界公开报告\n- 对每个框架的优缺点给出具体数据支撑\n- 最后给出 3 条「个人判断」——多智能体系统的未来 1-2 年最值得关注的方向\n- 字数 2500-3500 字，结构清晰（标题/小节/数据表）",
+      "evaluation_focus": ["framework_comparison", "citation_accuracy", "data_grounding"],
+      "key_facts_checklist": [
+        "Google DeepMind 180 配置实验：顺序任务 -39~70%，并行任务 +81%",
+        "Anthropic 90.2% 提升 + 15× token 消耗",
+        "OWL 论文 arXiv:2505.23885 (NeurIPS 2025)",
+        "Riedl ICLR 2026 — TDMI 信息论框架",
+        "3-5 agent 甜区 / 7+ 拐点"
+      ]
+    },
+    {
+      "id": "T2",
+      "name": "2026 年 LLM 推理优化综述",
+      "difficulty": "⭐⭐⭐",
+      "expected_agents": 4,
+      "query": "梳理 2026 年大语言模型推理优化（Inference Optimization）的关键技术进展，覆盖以下五个方向：\n1. KV Cache 优化（paged attention、prefix sharing、KV cache compression）\n2. Speculative Decoding（自回归加速）\n3. Quantization（INT4/INT8/Mixed Precision）\n4. Batching & Scheduling（continuous batching、chunked prefill）\n5. Hardware-aware Optimization（GPU-specific kernel、MoE routing）\n\n要求：\n- 每个方向至少 1 个工业级案例（vLLM / SGLang / TensorRT-LLM / SGLang / llama.cpp 等）\n- 给出具体的加速比/内存节省数据\n- 对比单卡 vs 多卡 vs 集群部署的差异\n- 字数 3000-4000 字，必须有 1 张对比表 + 1 张时间线",
+      "evaluation_focus": ["technical_depth", "data_accuracy", "case_grounding"],
+      "key_facts_checklist": [
+        "vLLM PagedAttention 论文出处 (SOSP 2023)",
+        "SGLang RadixAttention 关键技术",
+        "Speculative decoding 的 acceptance rate 与加速比关系",
+        "INT4 quantization 的精度损失 vs 内存节省 trade-off",
+        "Continuous batching vs static batching 吞吐量差异"
+      ]
+    },
+    {
+      "id": "T3",
+      "name": "A2A 协议 vs MCP 协议对比",
+      "difficulty": "⭐⭐",
+      "expected_agents": 3,
+      "query": "深入对比 2026 年 AI Agent 两大通信协议：A2A (Agent-to-Agent Protocol) 与 MCP (Model Context Protocol)。\n\n覆盖维度：\n1. 设计目标：跨 agent 协作 vs 工具/数据访问\n2. 技术栈：HTTP/JSON-RPC/gRPC vs stdio/SSE\n3. 生态成熟度：A2A 150+ 组织 vs MCP 全行业事实标准\n4. 互操作性：跨厂商 vs 跨模型\n5. 典型应用场景：多 agent 协作系统 vs 单 agent 工具扩展\n\n要求：\n- 必须包含 A2A 与 MCP 的「分工 vs 重叠」分析\n- 给出 2-3 个实际部署案例（企业级 / 开源项目）\n- 对未来 6-12 个月的协议演进给出 3 条预测\n- 字数 2000-2800 字",
+      "evaluation_focus": ["protocol_clarity", "ecosystem_grounding", "predictive_insight"],
+      "key_facts_checklist": [
+        "A2A 由 Google 发起，2025 年 4 月发布",
+        "A2A 当前 150+ 组织参与，Linux 基金会托管",
+        "MCP 由 Anthropic 提出，2024 年 11 月开源",
+        "MCP 已成为 agent 工具访问的事实标准（OpenAI 跟进）",
+        "A2A = Agent 间的 HTTP 协议，MCP = Agent 访问工具的 USB 协议"
+      ]
+    },
+    {
+      "id": "T4",
+      "name": "AI Agent 安全威胁全景",
+      "difficulty": "⭐⭐⭐⭐",
+      "expected_agents": 5,
+      "query": "系统梳理 2026 年 AI Agent 系统的安全威胁图谱，覆盖以下六个层面：\n1. Prompt Injection（直接注入、间接注入、跨 agent 注入）\n2. Tool Misuse（Agent 滥用工具执行危险操作）\n3. Memory Poisoning（持久化记忆污染）\n4. Identity Spoofing（Agent 身份伪造 / A2A 协议层）\n5. Cooperative Adversarial Agents（恶意 agent 混入协作）\n6. Supply Chain（第三方 skill / tool 的后门）\n\n要求：\n- 至少 2 个 2025-2026 年的真实攻击案例\n- 引用 NIST CAISI / OWASP Agentic AI Top 10 等权威框架\n- 给出「多层防御」的具体技术方案（输入过滤 + 行为审计 + 反事实推理）\n- 包含 1 张威胁分类图 + 1 张防御架构图\n- 字数 3500-5000 字",
+      "evaluation_focus": ["threat_completeness", "real_case_grounding", "defense_technical_depth"],
+      "key_facts_checklist": [
+        "NIST CAISI 2026-03 首次将 AI Agent 纳入国家级合规框架",
+        "OWASP Agentic AI Top 10 (2025) 列出 10 大威胁",
+        "CAIF 2026 Fellowships 24 名 PhD 研究多智能体安全",
+        "Cooperative AI Foundation 2025 报告",
+        "arXiv:2505.02077 提出 multi-agent security 新子领域",
+        "Counterfactual Credit Policy 用于检测恶意 agent"
+      ]
+    },
+    {
+      "id": "T5",
+      "name": "多智能体涌现行为研究",
+      "difficulty": "⭐⭐⭐⭐⭐",
+      "expected_agents": 5,
+      "query": "深入研究大语言模型多智能体系统中的涌现行为（Emergent Behavior）。\n\n核心问题：\n1. 多智能体 LLM 是否会涌现出单 agent 不具备的能力？\n2. 如何用信息论（TDMI / Partial Information Decomposition）量化涌现？\n3. 哪些 prompt 设计会触发或抑制涌现？\n4. 涌现 vs 统计涨落 / 虚假耦合的区分方法？\n5. 涌现对多智能体系统设计的工程意义？\n\n要求：\n- 重点引用 Riedl ICLR 2026 (OpenReview SRn1MtMPRq) 的 TDMI 框架\n- 对照 Google DeepMind「3-5 agent 甜区」结论与涌现的关系\n- 给出 1 个可复现的涌现实验设计（任务 + 干预 + 度量）\n- 对 033 Phase 3 涌现专题章节有直接参考价值\n- 字数 4000-5000 字，必须有 1 张涌现判据流程图",
+      "evaluation_focus": ["research_frontier", "mathematical_rigor", "reproducibility"],
+      "key_facts_checklist": [
+        "Riedl ICLR 2026 — TDMI 框架 (OpenReview SRn1MtMPRq)",
+        "三组干预：Control / +Persona / +Persona+ToM",
+        "Persona+ToM 触发强涌现协同",
+        "Synergy vs Redundancy vs Uniqueness 信息分解",
+        "涌现判据：Synergy > 0 + Identity-linked differentiation 显著"
+      ]
+    }
+  ],
+  "evaluation_rubric": {
+    "fact_accuracy": "10分 - LLM-as-judge + key_facts_checklist 覆盖度",
+    "structure_completeness": "10分 - 模板匹配度（标题/章节/图表/数据）",
+    "readability": "10分 - LLM-as-judge",
+    "insight_depth": "10分 - LLM-as-judge（'个人判断'质量）",
+    "composite": "加权平均 40/20/20/20 = 10分"
+  },
+  "stop_conditions": {
+    "max_tokens_per_run": 50000,
+    "max_duration_seconds": 120,
+    "success_rate_threshold": 0.6
+  }
+}
