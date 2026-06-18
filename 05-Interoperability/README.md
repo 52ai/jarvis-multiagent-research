@@ -11,17 +11,21 @@
 ```
 05-Interoperability/
 ├── README.md                                  ← 本文件（专题索引）
-├── 智能体互联互通专题报告-v0.1.md              ← 核心报告（13K · 三层 + 三维建议）
+├── 智能体互联互通专题报告-v0.1.md              ← 核心报告 v0.1（13K）
+├── 智能体互联互通专题报告-v0.2.md              ← 整合升级版 v0.2（11K · 含 §9-15）
 ├── executive-summary.md                       ← 微信公众号速读版（5 分钟看懂）
 ├── decision-tree-mcp-vs-a2a.md                ← MCP vs A2A 决策树（开发者实战）
 ├── interop-experiment-design-v0.1.md         ← 4 架构实验设计（Phase 2 第 13 组）
 ├── china-perspective.md                       ← 中国视角补充（AIP / GB/Z 185）
+├── STATUS.md                                  ← 实装状态（已落地 vs stub）
+├── ccmas2026-submission/                      ← CCMAS 2026 投稿材料（6/27-28）
+│   ├── README.md                               ← 投稿指南
+│   └── paper-1-agent-internet.md               ← Paper 1 摘要 + 7 章大纲
 ├── literature/                                ← 文献索引
 │   └── index.md                                ← 16 篇核心文献
-├── notes/                                     ← 关键文献笔记
-│   ├── verisign-dns-ai-discovery-notes.md     ← Verisign DNS-AID 实证
-│   └── ain-architecture-notes.md              ← IETF AIN 草案
-└── policy/                                    ← 政策建议（待扩展）
+└── notes/                                     ← 关键文献笔记
+    ├── verisign-dns-ai-discovery-notes.md     ← Verisign DNS-AID 实证
+    └── ain-architecture-notes.md              ← IETF AIN 草案
 ```
 
 ---
