@@ -1,0 +1,39 @@
+{
+  "run_id": "E1_single_r1",
+  "task_id": "T1",
+  "task_name": "多智能体协作技术综述",
+  "arch_id": "single",
+  "arch_name": "Single Agent",
+  "n_agents": 1,
+  "repetition": 1,
+  "duration_ms": 45230,
+  "tokens_used": {
+    "input": 1200,
+    "output": 3500,
+    "total": 4700
+  },
+  "scores": {
+    "fact_accuracy": 9.0,
+    "fact_accuracy_reasoning": "[MOCK] 关键词覆盖 5/5 = 100%",
+    "structure_completeness": 7.0,
+    "structure_completeness_reasoning": "[MOCK] 待接入真实 LLM",
+    "readability": 8.0,
+    "readability_reasoning": "[MOCK] 待接入真实 LLM",
+    "insight_depth": 6.5,
+    "insight_depth_reasoning": "[MOCK] 待接入真实 LLM",
+    "composite_score": 7.9,
+    "checklist_coverage": {
+      "checklist_1": "covered",
+      "checklist_2": "covered",
+      "checklist_3": "covered",
+      "checklist_4": "covered",
+      "checklist_5": "covered"
+    },
+    "improvement_suggestions": [
+      "[MOCK] 覆盖度 100%，补全 missing 项",
+      "[MOCK] 待接入真实 LLM 做深度评分"
+    ]
+  },
+  "evaluated_at": "2026-06-18 14:36:44 CST",
+  "judge_model": "opus-4 (MOCK)"
+}
